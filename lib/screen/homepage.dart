@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/list_items.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
     Key? key,
@@ -52,11 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0))),
+                child: ListView(
+                  padding: EdgeInsets.only(top: 50, left: 50, right: 50),
+                  children: [
+                    Items(title: "Buy Milk"),
+                    Items(title: "Buy Eggs"),
+                    Items(title: "Buy Bread"),
+                  ],
+                ),
               ),
             )
           ],
