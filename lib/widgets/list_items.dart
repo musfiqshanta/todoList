@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
-class Items extends StatelessWidget {
-  String title;
-  Items({Key? key, required this.title}) : super(key: key);
+class Callback extends StatelessWidget {
+  const Callback({Key? key, required this.isChecked, required this.callbackfus})
+      : super(key: key);
 
+  final bool isChecked;
+  final void Function(bool? a)? callbackfus;
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        title,
-        style: TextStyle(fontSize: 18),
+        "Buy Milk",
+        style: TextStyle(
+            fontSize: 18,
+            decoration: isChecked ? TextDecoration.lineThrough : null),
       ),
       trailing: Checkbox(
-        onChanged: (value) {},
-        value: false,
+        onChanged: callbackfus,
+        value: isChecked,
       ),
     );
   }

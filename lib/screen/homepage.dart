@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 import '../widgets/list_items.dart';
@@ -11,8 +13,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
+    // void callbackfu(bool value) {
+    //   setState(() {
+    //     isChecked = value;
+    //   });
+    // }
+
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       body: SafeArea(
@@ -60,11 +70,28 @@ class _MyHomePageState extends State<MyHomePage> {
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0))),
                 child: ListView(
-                  padding: EdgeInsets.only(top: 50, left: 50, right: 50),
+                  padding: const EdgeInsets.only(top: 50, left: 50, right: 50),
                   children: [
-                    Items(title: "Buy Milk"),
-                    Items(title: "Buy Eggs"),
-                    Items(title: "Buy Bread"),
+                    Callback(
+                      isChecked: isChecked,
+                      callbackfus: (bool? newValue) {
+                        setState(() {
+                          isChecked = newValue!;
+                        });
+                      },
+                    ),
+                    // Items(
+                    //   title: "Buy Milk",
+                    //   isChecked: false,
+                    // ),
+                    // Items(
+                    //   title: "Buy Eggs",
+                    //   isChecked: false,
+                    // ),
+                    // Items(
+                    //   title: "Buy Bread",
+                    //   isChecked: false,
+                    // ),
                   ],
                 ),
               ),
@@ -73,10 +100,58 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            backgroundColor: Colors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            context: context,
+            builder: (context) => Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      "Add Task",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 32,
+                          color: Colors.lightBlue,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const TextField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                          disabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.lightBlue, width: 2))),
+                    ),
+                    const SizedBox(height: 10),
+                    Material(
+                      color: Colors.lightBlue,
+                      child: MaterialButton(
+                        onPressed: () {},
+                        child: const Text(
+                          "Add",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+
+
