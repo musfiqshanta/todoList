@@ -1,7 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 
+import '../model/listitem.dart';
 import '../widgets/list_items.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -13,8 +12,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isChecked = false;
-
+  //bool isChecked = false;
+  late ListItems listitem;
+  late String addItems;
+  List<ListItems> list = [
+    ListItems(title: "buy Milk"),
+  ];
   @override
   Widget build(BuildContext context) {
     // void callbackfu(bool value) {
@@ -33,8 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.only(left: 50, top: 50, bottom: 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  CircleAvatar(
+                children: <Widget>[
+                  const CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 30,
                     child: Icon(
@@ -42,19 +45,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 40.0,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-                  Text(
+                  const Text(
                     "To DO List",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 35,
                         color: Colors.white,
                         fontWeight: FontWeight.w900),
                   ),
                   Text(
-                    "12 Tasks",
-                    style: TextStyle(
+                    "${list.length} Task",
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
@@ -64,37 +67,24 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0))),
-                child: ListView(
-                  padding: const EdgeInsets.only(top: 50, left: 50, right: 50),
-                  children: [
-                    Callback(
-                      isChecked: isChecked,
-                      callbackfus: (bool? newValue) {
-                        setState(() {
-                          isChecked = newValue!;
-                        });
-                      },
-                    ),
-                    // Items(
-                    //   title: "Buy Milk",
-                    //   isChecked: false,
-                    // ),
-                    // Items(
-                    //   title: "Buy Eggs",
-                    //   isChecked: false,
-                    // ),
-                    // Items(
-                    //   title: "Buy Bread",
-                    //   isChecked: false,
-                    // ),
-                  ],
-                ),
-              ),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0))),
+                  child: ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        return Callback(
+                          title: list[index].title,
+                          isChecked: list[index].isChecked,
+                          callbackf: (bool? a) {
+                            setState(() {
+                              list[index].troggole();
+                            });
+                          },
+                        );
+                      })),
             )
           ],
         ),
@@ -121,10 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.lightBlue,
                           fontWeight: FontWeight.bold),
                     ),
-                    const TextField(
+                    TextField(
+                      onChanged: (String value) {
+                        addItems = value;
+                      },
                       autofocus: true,
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           disabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.lightBlue, width: 2))),
@@ -133,7 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     Material(
                       color: Colors.lightBlue,
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            list.add(
+                              ListItems(title: addItems),
+                            );
+                          });
+                          Navigator.pop(context);
+                        },
                         child: const Text(
                           "Add",
                           style: TextStyle(color: Colors.white),
@@ -152,6 +152,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-

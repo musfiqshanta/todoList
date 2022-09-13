@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:todo/model/listitem.dart';
 
 class Callback extends StatelessWidget {
-  const Callback({Key? key, required this.isChecked, required this.callbackfus})
+  Callback(
+      {Key? key,
+      required this.title,
+      required this.isChecked,
+      required this.callbackf})
       : super(key: key);
 
+  final String title;
   final bool isChecked;
-  final void Function(bool? a)? callbackfus;
+
+  //final void Function(bool? a)? callbackfus;
+final void Function(bool? a)? callbackf;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        "Buy Milk",
+        title,
         style: TextStyle(
             fontSize: 18,
             decoration: isChecked ? TextDecoration.lineThrough : null),
       ),
       trailing: Checkbox(
-        onChanged: callbackfus,
+        onChanged: callbackf,
         value: isChecked,
       ),
     );
