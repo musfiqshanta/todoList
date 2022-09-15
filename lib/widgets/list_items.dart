@@ -11,7 +11,6 @@ class Callback extends StatelessWidget {
 
   final String title;
   final bool isChecked;
-
   //final void Function(bool? a)? callbackfus;
 final void Function(bool? a)? callbackf;
 

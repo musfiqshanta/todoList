@@ -5,6 +5,6 @@ class ListItems {
   ListItems({required this.title, this.isChecked = false});
 
   void troggole() {
-    isChecked = !isChecked;
+    isChecked = !isChecked ;
   }
 }

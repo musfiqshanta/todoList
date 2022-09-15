@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../model/listitem.dart';
-import '../widgets/list_items.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/screen/body.dart';
+import '../model/listing_item.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -12,82 +12,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //bool isChecked = false;
-  late ListItems listitem;
-  late String addItems;
-  List<ListItems> list = [
-    ListItems(title: "buy Milk"),
-  ];
+  late String createTask;
   @override
   Widget build(BuildContext context) {
-    // void callbackfu(bool value) {
-    //   setState(() {
-    //     isChecked = value;
-    //   });
-    // }
-
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 50, top: 50, bottom: 50),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 30,
-                    child: Icon(
-                      Icons.list,
-                      size: 40.0,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    "To DO List",
-                    style: const TextStyle(
-                        fontSize: 35,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900),
-                  ),
-                  Text(
-                    "${list.length} Task",
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0))),
-                  child: ListView.builder(
-                      itemCount: list.length,
-                      itemBuilder: (context, index) {
-                        return Callback(
-                          title: list[index].title,
-                          isChecked: list[index].isChecked,
-                          callbackf: (bool? a) {
-                            setState(() {
-                              list[index].troggole();
-                            });
-                          },
-                        );
-                      })),
-            )
-          ],
-        ),
+        child: Body(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -113,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     TextField(
                       onChanged: (String value) {
-                        addItems = value;
+                        createTask = value;
                       },
                       autofocus: true,
                       textAlign: TextAlign.center,
@@ -127,11 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.lightBlue,
                       child: MaterialButton(
                         onPressed: () {
-                          setState(() {
-                            list.add(
-                              ListItems(title: addItems),
-                            );
-                          });
+                          Provider.of<GetItems>(context, listen: false)
+                              .changetext(createTask);
+
                           Navigator.pop(context);
                         },
                         child: const Text(
@@ -139,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
