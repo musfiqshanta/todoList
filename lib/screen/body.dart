@@ -60,10 +60,13 @@ class Body extends StatelessWidget {
                     return Consumer<GetItems>(
                       builder: (context, getItems, child) {
                         return Callback(
+                          onLongPress: () {
+                            getItems.removeitems(getItems.list[index]);
+                          },
                           title: getItems.list[index].title,
                           isChecked: getItems.list[index].isChecked,
                           callbackf: (bool? a) {
-                            getItems.list[index].troggole();
+                            getItems.checkbox(getItems.list[index]);
                           },
                         );
                       },

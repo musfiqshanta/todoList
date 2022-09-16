@@ -3,28 +3,32 @@ import 'listitem.dart';
 import 'dart:collection';
 
 class GetItems extends ChangeNotifier {
-
   final List<ListItems> _list = [
     ListItems(title: "buy Milk"),
     ListItems(title: "buy egg"),
-    ListItems(title: "buy egg"),
+    ListItems(title: "buy dim"),
   ];
 
-  UnmodifiableListView<ListItems> get list {
-    return UnmodifiableListView(_list);
+  List<ListItems> get list {
+    return _list;
   }
 
   void changetext(String newvalue) {
-    _list.add(ListItems(title: newvalue));
+    list.add(ListItems(title: newvalue));
     notifyListeners();
   }
 
   void checkbox(ListItems listitems) {
-
     listitems.troggole();
+    notifyListeners();
+  }
+
+  void removeitems(ListItems removelist) {
+    list.remove(removelist);
+    notifyListeners();
   }
 
   get totalitems {
-    return _list.length;
+    return list.length;
   }
 }

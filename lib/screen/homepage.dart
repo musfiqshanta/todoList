@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue,
-      body: SafeArea(
+      body: const SafeArea(
         child: Body(),
       ),
       floatingActionButton: FloatingActionButton(
